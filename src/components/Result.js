@@ -1,6 +1,5 @@
 import React, { useEffect } from "react";
 import axios from "axios";
-import { API } from "aws-amplify";
 
 const Result = ({ answer, calcResult, refreshPage, startTest }) => {
   const TYPE = calcResult();
@@ -26,7 +25,7 @@ const Result = ({ answer, calcResult, refreshPage, startTest }) => {
         "Content-Type": "application/json",
       },
     };
-    return API.post("amptool", "/items/result", req);
+    return axios.post("amptool", "/items/result", req);
   }, [TYPE, answer]);
 
   /*   const summaryResult = () => {
