@@ -3,12 +3,9 @@
   "version": "0.1.0",
   "private": true,
   "dependencies": {
-    "@aws-amplify/ui-react": "^0.2.23",
     "@testing-library/jest-dom": "^4.2.4",
     "@testing-library/react": "^9.3.2",
     "@testing-library/user-event": "^7.1.2",
-    "aws-amplify": "^3.3.3",
-    "aws-sdk": "^2.766.0",
     "axios": "^0.20.0",
     "chart.js": "^2.9.3",
     "howler": "^2.2.0",

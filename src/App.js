@@ -8,11 +8,8 @@ import Statistics from "./components/Statistics";
 import styled, { createGlobalStyle } from "styled-components";
 import { getLuminance } from "polished";
 import { preloadImage } from "./components/utilFunctions";
-import Amplify from "aws-amplify";
-import aws_exports from "./aws-exports";
 import player from "./components/Player";
 import Toast from "light-toast";
-Amplify.configure(aws_exports);
 
 const GlobalStyle = createGlobalStyle`
   html {
