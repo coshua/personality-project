@@ -75,7 +75,7 @@ const Span = styled.span`
   justify-content: center;
 `;
 
-const ShareSpan = styled.span`
+/* const ShareSpan = styled.span`
   display: inline-block;
   margin-top: 5px;
   height: 69px;
@@ -83,7 +83,7 @@ const ShareSpan = styled.span`
   & > img {
     bottom: 0;
   }
-`;
+`; */
 
 const QUESTIONS_LENGTH = questionnaire.length;
 

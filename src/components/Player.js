@@ -28,9 +28,6 @@ Player.prototype = {
         });
       }
       sound.play();
-      console.log(
-        "Sound play " + "Volume: " + volume + " Duration: " + duration
-      );
       sound.fade(0, volume, duration);
       self.title = title;
     }
