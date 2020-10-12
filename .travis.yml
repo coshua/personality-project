@@ -11,4 +11,8 @@ deploy:
   access_key_id: $AWS_ACCESS_KEY
   secret_access_key: $AWS_SECRET_ACCESS_KEY
   bucket: "personality-project.s3.amazonaws.com"
+  region: ap-northeast-2
   skip_cleanup: true
+  local_dir: build
+  on:
+    branch: production
