@@ -25,7 +25,11 @@ const Result = ({ answer, calcResult, refreshPage, startTest }) => {
         "Content-Type": "application/json",
       },
     };
-    return axios.post("amptool", "/items/result", req);
+    return axios.post(
+      "http://api.personality.jutopia.net/api/result",
+      data,
+      config
+    );
   }, [TYPE, answer]);
 
   /*   const summaryResult = () => {

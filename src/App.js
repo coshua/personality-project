@@ -111,10 +111,8 @@ const videoList = {
 
 const App = () => {
   useEffect(() => {
-    if (window.kakao) {
-      window.Kakao.init("77148d309b8680577a6ff34d93e29776");
-      console.log(window.Kakao.isInitialized());
-    }
+    window.Kakao.init("77148d309b8680577a6ff34d93e29776");
+    console.log(window.Kakao.isInitialized());
   }, []);
   const [score, setScore] = useState(initialState);
   const [answer, setAnswer] = useState(""); //for statistics

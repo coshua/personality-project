@@ -7,7 +7,9 @@ const Statistics = () => {
   useEffect(() => {
     try {
       (async () => {
-        const res = await axios.get("amptool", "/items/result");
+        const res = await axios.get(
+          "http://api.personality.jutopia.net/api/result"
+        );
         if (res.data.length > 0) {
           const labels = [];
           const acc = [];
