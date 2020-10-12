@@ -16,7 +16,7 @@ const Result = ({ answer, calcResult, refreshPage, startTest }) => {
       category: TYPE,
     };
 
-    const req = {
+    /*     const req = {
       body: {
         response: answer,
         category: TYPE,
@@ -24,7 +24,7 @@ const Result = ({ answer, calcResult, refreshPage, startTest }) => {
       headers: {
         "Content-Type": "application/json",
       },
-    };
+    }; */
     return axios.post(
       "http://api.personality.jutopia.net/api/result",
       data,
