@@ -111,10 +111,14 @@ const videoList = {
 
 const App = () => {
   useEffect(() => {
-    if (window.kakao) {
+    var script = window.document.createElement("script");
+    script.addEventListener("load", (event) => {
+      console.log("Kakao finished loading");
       window.Kakao.init("77148d309b8680577a6ff34d93e29776");
       console.log(window.Kakao.isInitialized());
-    }
+    });
+    script.src = "https://developers.kakao.com/sdk/js/kakao.js";
+    window.document.body.append(script);
   }, []);
   const [score, setScore] = useState(initialState);
   const [answer, setAnswer] = useState(""); //for statistics

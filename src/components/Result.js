@@ -26,7 +26,7 @@ const Result = ({ answer, calcResult, refreshPage, startTest }) => {
       },
     }; */
     return axios.post(
-      "http://api.personality.jutopia.net/api/result",
+      "https://api.personality.jutopia.net/api/result",
       data,
       config
     );
