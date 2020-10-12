@@ -30,6 +30,7 @@ fi
 # Build the name of the S3 bucket we want to deploy to
 echo "Deploying to the $S3_BUCKET bucket"
 
+/usr/bin/python -m pip install --upgrade pip
 # Install the AWS CLI so we can publish to S3
 pip install awscli --upgrade --user
 
