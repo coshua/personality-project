@@ -1,19 +1,7 @@
-#sudo: required
-##language: node_js
-#node_js:
-# - node
-#after_success:
-# - chmod +x deploy.sh
-#- "./deploy.sh"
-langauge: node_js
-node_js: "8"
-deploy:
-  provider: s3
-  access_key_id: $AWS_ACCESS_KEY
-  secret_access_key: $AWS_SECRET_ACCESS_KEY
-  bucket: "personality-project.s3.amazonaws.com"
-  region: ap-northeast-2
-  skip_cleanup: true
-  local_dir: build
-  on:
-    branch: production
+sudo: required
+language: node_js
+node_js:
+  - node
+after_success:
+  - chmod +x deploy.sh
+  - "./deploy.sh"
