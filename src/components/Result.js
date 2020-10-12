@@ -5,7 +5,7 @@ const Result = ({ answer, calcResult, refreshPage, startTest }) => {
   const TYPE = calcResult();
 
   useEffect(() => {
-    /*     const config = {
+    const config = {
       headers: {
         "Content-Type": "application/json",
       },
@@ -14,7 +14,7 @@ const Result = ({ answer, calcResult, refreshPage, startTest }) => {
     const data = {
       response: answer,
       category: TYPE,
-    }; */
+    };
 
     const req = {
       body: {
