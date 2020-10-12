@@ -5,6 +5,7 @@
 #after_success:
 # - chmod +x deploy.sh
 #- "./deploy.sh"
+langauge: node_js
 
 deploy:
   provider: s3
