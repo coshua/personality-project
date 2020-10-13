@@ -13,11 +13,15 @@ import Toast from "light-toast";
 
 const GlobalStyle = createGlobalStyle`
   html {
-    height: 100%;
+    min-height: 100%;
+    overflow-x: hidden;
   }
   body {
+    position: relative;
+    overflow-x: hidden;
     font-family: "Noto Sans KR", sans-serif;
-    font-size: 100%
+    font-size: 4vw;
+    font-size: 110%
     height: 100%;
     color: ${(props) =>
       getLuminance(`rgba(${props.backgroundColor})`) >= getLuminance("#dedede")
@@ -46,8 +50,8 @@ const GlobalStyle = createGlobalStyle`
   }
 
   @media only screen and (min-width: 600px) {
-    html {
-      font-size: 125%;
+    body {
+      font-size: 2.5vw;
     }
   }
 `;
@@ -69,10 +73,12 @@ const Content = styled.div`
 `;
 
 const Span = styled.span`
-  margin: 2rem 1rem;
+  margin: 1rem auto;
   display: flex;
   align-items: center;
-  justify-content: center;
+  justify-content: space-around;
+  width: 25%;
+  font-size: 2vw;
 `;
 
 /* const ShareSpan = styled.span`
@@ -355,14 +361,13 @@ const App = () => {
                       })
                     }
                   />
-                  <button
+                  <i
+                    className="fas fa-link"
                     onClick={() => {
                       navigator.clipboard.writeText("personality.jutopia.net");
                       Toast.info("Copied to Clipboard", 2000);
                     }}
-                  >
-                    url
-                  </button>
+                  ></i>
                   <Link to="/statistics">stat</Link>
                 </Span>
               </>

@@ -33,6 +33,10 @@ const Container = styled.div`
 const QuestionContainer = styled.div`
   text-align: center;
   padding: 2rem;
+  margin-bottom: 1.5rem;
+  @media only screen and (min-width: 600px) {
+    margin-bottom: 0;
+  }
 `;
 
 const QuestionSpan = styled.span`
@@ -55,7 +59,7 @@ const QuestionSpan = styled.span`
 `;
 
 const Button = styled.button`
-  font-size: 0.75rem;
+  font-size: 3vw;
   box-sizing: border-box;
   color: inherit;
   display: inline-block;
@@ -65,7 +69,7 @@ const Button = styled.button`
   text-decoration: none;
   background-color: rgba(0, 0, 0, 0);
   overflow: hidden;
-  width: 70%;
+  width: 100%;
   font-family: inherit;
   text-align: center;
   cursor: pointer;
@@ -100,6 +104,7 @@ const Button = styled.button`
     margin-top: 2rem;
   }
   @media only screen and (min-width: 600px) {
+    font-size: 1.8vw;
     width: 40%;
     & + & {
       margin-left: 10%;
