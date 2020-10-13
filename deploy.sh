@@ -48,4 +48,4 @@ aws s3 sync build/ "s3://$S3_BUCKET" --acl public-read --delete
 # Make sure you have the CLOUDFRONT_DIST_ID_* env variables defined for this to work
 aws cloudfront create-invalidation \
   --distribution-id $CLOUDFRONT_DIST_ID_PRODUCTION \
-  --paths '/*'
+  --paths '/*' '/'
