@@ -20,7 +20,7 @@ const GlobalStyle = createGlobalStyle`
     position: relative;
     overflow-x: hidden;
     font-family: "Noto Sans KR", sans-serif;
-    font-size: 4vw;
+    font-size: 4.3vw;
     font-size: 110%
     height: 100%;
     color: ${(props) =>
@@ -78,7 +78,10 @@ const Span = styled.span`
   align-items: center;
   justify-content: space-around;
   width: 25%;
-  font-size: 2vw;
+  font-size: 4vw;
+  @media only screen and (min-width: 600px) {
+    font-size: 2.5vw;
+  }
 `;
 
 /* const ShareSpan = styled.span`

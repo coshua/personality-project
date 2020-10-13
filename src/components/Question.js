@@ -33,7 +33,7 @@ const Container = styled.div`
 const QuestionContainer = styled.div`
   text-align: center;
   padding: 2rem;
-  margin-bottom: 1.5rem;
+  margin-bottom: 2rem;
   @media only screen and (min-width: 600px) {
     margin-bottom: 0;
   }
@@ -59,7 +59,7 @@ const QuestionSpan = styled.span`
 `;
 
 const Button = styled.button`
-  font-size: 3vw;
+  font-size: 3.5vw;
   box-sizing: border-box;
   color: inherit;
   display: inline-block;
@@ -70,6 +70,7 @@ const Button = styled.button`
   background-color: rgba(0, 0, 0, 0);
   overflow: hidden;
   width: 100%;
+  max-height: 30%;
   font-family: inherit;
   text-align: center;
   cursor: pointer;
