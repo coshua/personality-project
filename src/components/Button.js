@@ -10,12 +10,11 @@ const StyledButton = styled.button`
   color: white;
   font-weight: bold;
   cursor: pointer;
-  padding: 6px 20px;
+  padding: 0.5rem 1.5rem;
   -webkit-transition: opacity 1s ease-in-out;
   transition: opacity 1s ease-in-out;
   margin: 1rem;
   /* 크기 */
-  height: 2rem;
   font-size: 1rem;
   font-family: inherit;
   /* 색상 */

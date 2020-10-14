@@ -18,6 +18,7 @@ const GlobalStyle = createGlobalStyle`
     overflow-x: hidden;
   }
   body {
+    min-height: 100vh;
     min-height: -webkit-fill-available;
     position: relative;
     overflow-x: hidden;
@@ -59,8 +60,7 @@ const GlobalStyle = createGlobalStyle`
 `;
 
 const Container = styled.div`
-  min-height: 100vh;
-  min-height: -webkit-fill-available;
+  height: 100vh;
   display: flex;
   flex-direction: column;
   position: relative;
