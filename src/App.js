@@ -13,11 +13,12 @@ import Toast from "light-toast";
 
 const GlobalStyle = createGlobalStyle`
   html {
-    min-height: -webkit-fill-available;
     min-height: 100%;
+    min-height: -webkit-fill-available;
     overflow-x: hidden;
   }
   body {
+    min-height: -webkit-fill-available;
     position: relative;
     overflow-x: hidden;
     font-family: "Noto Sans KR", sans-serif;

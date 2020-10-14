@@ -82,6 +82,7 @@ const Statistics = ({ type }) => {
             animation: {
               duration: 1500,
             },
+
             layout: {
               padding: {
                 top: (width * 6) / 100,
@@ -119,7 +120,7 @@ const Statistics = ({ type }) => {
               },
             },
           }}
-          height={130}
+          height={isMobile ? 200 : 100}
         />
       ) : (
         <></>
