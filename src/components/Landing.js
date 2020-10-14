@@ -37,7 +37,7 @@ const Landing = ({ startTest, handleVideo }) => {
   };
   return (
     <Container>
-      <h2 id="animation">{spanGenerator("당신의 내면에 귀 기울어보세요")}</h2>
+      <h2 id="animation">{spanGenerator("1당신의 내면에 귀 기울어보세요")}</h2>
 
       <div className="control">
         <Button
@@ -45,7 +45,7 @@ const Landing = ({ startTest, handleVideo }) => {
             startTest();
           }}
         >
-          시작하기5:15
+          시작하기
         </Button>
       </div>
     </Container>
