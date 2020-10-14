@@ -301,7 +301,10 @@ const App = () => {
       )}
       <Router>
         <Switch>
-          <Route path="/statistics" component={Statistics} />
+          <Route
+            path="/statistics"
+            render={() => <Statistics type={calcResult()} />}
+          />
           <Route
             exact
             path="/"
