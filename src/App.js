@@ -13,19 +13,15 @@ import Toast from "light-toast";
 
 const GlobalStyle = createGlobalStyle`
   html {
-    height: 100vh;
     height: -webkit-fill-available;
     overflow-x: hidden;
   }
   body {
-    min-height: 100vh;
-    min-height: -webkit-fill-available;
     position: relative;
     overflow-x: hidden;
     font-family: "Noto Sans KR", sans-serif;
     font-size: 4.3vw;
     font-size: 110%
-    height: 100%;
     color: ${(props) =>
       getLuminance(`rgba(${props.backgroundColor})`) >= getLuminance("#dedede")
         ? "#000000"
@@ -60,7 +56,8 @@ const GlobalStyle = createGlobalStyle`
 `;
 
 const Container = styled.div`
-  height: 100vh;
+  min-height: 100vh;
+  min-height: -webkit-fill-available;
   display: flex;
   flex-direction: column;
   position: relative;
