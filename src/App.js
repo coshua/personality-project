@@ -57,7 +57,7 @@ const GlobalStyle = createGlobalStyle`
 
 const Container = styled.div`
   height: 100vh;
-  height: ${window.innerHeight}px;
+  height: ${(props) => props.innerHeight}px;
   display: flex;
   flex-direction: column;
   position: relative;
@@ -130,6 +130,11 @@ const App = () => {
     script.src = "https://developers.kakao.com/sdk/js/kakao.js";
     window.document.body.append(script);
   }, []);
+  const [innerHeight, setInnerHeight] = useState(window.innerHeight);
+  window.addEventListener("resize", () => {
+    setInnerHeight(window.innerHeight);
+  });
+
   const [score, setScore] = useState(initialState);
   const [answer, setAnswer] = useState(""); //for statistics
   const [start, setStart] = useState(false);
@@ -285,7 +290,7 @@ const App = () => {
   };
 
   return (
-    <Container>
+    <Container innerHeight={innerHeight}>
       <GlobalStyle
         backgroundImage={background.backgroundImage}
         backgroundColor={background.backgroundColor}
