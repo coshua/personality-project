@@ -43,7 +43,7 @@ const GlobalStyle = createGlobalStyle`
 
   video {
     width: 100%;
-    height: 100%;
+    height: 100vh;
     object-fit: cover;
     position: fixed;
     transition: opacity 2s;
@@ -62,6 +62,7 @@ const Container = styled.div`
   display: flex;
   flex-direction: column;
   min-height: 100vh;
+  min-height: -webkit-fill-available;
   position: relative;
   overflow: hidden;
 `;
