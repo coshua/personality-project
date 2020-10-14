@@ -57,7 +57,7 @@ const GlobalStyle = createGlobalStyle`
 
 const Container = styled.div`
   height: 100vh;
-  height: ${window.innerHeight};
+  height: ${window.innerHeight}px;
   display: flex;
   flex-direction: column;
   position: relative;
