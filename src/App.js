@@ -13,6 +13,7 @@ import Toast from "light-toast";
 
 const GlobalStyle = createGlobalStyle`
   html {
+    min-height: -webkit-fill-available;
     min-height: 100%;
     overflow-x: hidden;
   }

@@ -16,15 +16,6 @@ const Result = ({ answer, calcResult, refreshPage, startTest }) => {
       category: TYPE,
     };
 
-    /*     const req = {
-      body: {
-        response: answer,
-        category: TYPE,
-      },
-      headers: {
-        "Content-Type": "application/json",
-      },
-    }; */
     return axios.post(
       "https://api.personality.jutopia.net/api/result",
       data,
@@ -32,10 +23,6 @@ const Result = ({ answer, calcResult, refreshPage, startTest }) => {
     );
   }, [TYPE, answer]);
 
-  /*   const summaryResult = () => {
-    var str = "에너지를 얻는 방향\n";
-    str += TYPE.includes("E") ? "Extraversion" : "Introversion";
-  }; */
   return (
     <>
       <div className="result-main"></div>
