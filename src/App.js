@@ -59,10 +59,10 @@ const GlobalStyle = createGlobalStyle`
 `;
 
 const Container = styled.div`
-  display: flex;
-  flex-direction: column;
   min-height: 100vh;
   min-height: -webkit-fill-available;
+  display: flex;
+  flex-direction: column;
   position: relative;
   overflow: hidden;
 `;

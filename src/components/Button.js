@@ -10,8 +10,7 @@ const StyledButton = styled.button`
   color: white;
   font-weight: bold;
   cursor: pointer;
-  padding-left: 1rem;
-  padding-right: 1rem;
+  padding: 6px 20px;
   -webkit-transition: opacity 1s ease-in-out;
   transition: opacity 1s ease-in-out;
   margin: 1rem;
