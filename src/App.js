@@ -56,8 +56,8 @@ const GlobalStyle = createGlobalStyle`
 `;
 
 const Container = styled.div`
-  height: 100vh;
-  height: -webkit-fill-available;
+  min-height: 100vh;
+
   display: flex;
   flex-direction: column;
   position: relative;
