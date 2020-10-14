@@ -45,7 +45,7 @@ const Landing = ({ startTest, handleVideo }) => {
             startTest();
           }}
         >
-          시작하기
+          시작하기5:15
         </Button>
       </div>
     </Container>
