@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from "react";
-import { BrowserRouter as Router, Route, Switch, Link } from "react-router-dom";
+import { BrowserRouter as Router, Route, Switch } from "react-router-dom";
 import questionnaire from "./utils/questionnaire";
 import Landing from "./components/Landing";
 import Question from "./components/Question";
@@ -9,7 +9,7 @@ import styled, { createGlobalStyle } from "styled-components";
 import { getLuminance } from "polished";
 import { preloadImage } from "./components/utilFunctions";
 import player from "./components/Player";
-import Toast from "light-toast";
+import ShareFooter from "./components/ShareFooter";
 
 const GlobalStyle = createGlobalStyle`
   html {
@@ -72,7 +72,7 @@ const Content = styled.div`
   align-items: center;
 `;
 
-const Span = styled.span`
+/* const Span = styled.span`
   flex: 1;
   margin: 1rem auto;
   display: flex;
@@ -83,7 +83,7 @@ const Span = styled.span`
   @media only screen and (min-width: 600px) {
     font-size: 2.5vw;
   }
-`;
+`; */
 
 /* const ShareSpan = styled.span`
   display: inline-block;
@@ -156,6 +156,16 @@ const App = () => {
       player.stop(volume, fadeDuration);
       return fadeDuration;
     }
+  };
+
+  const muteMusic = () => {
+    player.pause();
+    setMusic({ ...music, pause: true });
+  };
+
+  const unmuteMusic = () => {
+    setMusic({ ...music, pause: false });
+    player.play(music.title, music.volume, 0);
   };
 
   const playMusic = (title = "rain", volume = 1, fadeDuration = 3000) => {
@@ -311,6 +321,17 @@ const App = () => {
             render={() => <Statistics type={calcResult()} />}
           />
           <Route
+            path="/post"
+            render={() => (
+              <Result
+                answer={answer}
+                calcResult={calcResult}
+                startTest={startTest}
+                refreshPage={refreshPage}
+              />
+            )}
+          />
+          <Route
             exact
             path="/"
             render={() => (
@@ -342,46 +363,11 @@ const App = () => {
                     />
                   )}
                 </Content>
-                <Span>
-                  {!music.pause ? (
-                    <i
-                      className="fas fa-headphones fa-lg"
-                      onClick={() => {
-                        player.pause();
-                        setMusic({ ...music, pause: true });
-                      }}
-                    ></i>
-                  ) : (
-                    <i
-                      className="fas fa-volume-mute fa-lg"
-                      onClick={() => {
-                        setMusic({ ...music, pause: false });
-                        player.play(music.title, music.volume, 0);
-                      }}
-                    ></i>
-                  )}
-                  <img
-                    src="https://developers.kakao.com/assets/img/about/logos/kakaolink/kakaolink_btn_small.png"
-                    alt="share"
-                    onClick={(e) =>
-                      window.Kakao.Link.sendCustom({
-                        templateId: 36312,
-                        templateArgs: {
-                          image_url:
-                            "https://myanimal.kokkiri.kr/assets/img/promotion/img_character14@2x.png",
-                        },
-                      })
-                    }
-                  />
-                  <i
-                    className="fas fa-link"
-                    onClick={() => {
-                      navigator.clipboard.writeText("personality.jutopia.net");
-                      Toast.info("Copied to Clipboard", 2000);
-                    }}
-                  ></i>
-                  <Link to="/statistics">stat</Link>
-                </Span>
+                <ShareFooter
+                  music={music}
+                  unmuteMusic={unmuteMusic}
+                  muteMusic={muteMusic}
+                />
               </>
             )}
           />

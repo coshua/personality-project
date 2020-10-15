@@ -15,12 +15,14 @@ const Result = ({ answer, calcResult, refreshPage, startTest }) => {
       response: answer,
       category: TYPE,
     };
-
-    return axios.post(
-      "https://api.personality.jutopia.net/api/result",
-      data,
-      config
-    );
+    async function post() {
+      axios.post(
+        "https://api.personality.jutopia.net/api/result",
+        data,
+        config
+      );
+    }
+    post();
   }, [TYPE, answer]);
 
   return (

@@ -6,16 +6,16 @@ const StyledButton = styled.button`
   display: inline-flex;
   outline: none;
   border: none;
-  border-radius: 4px;
+  border-radius: 1.5vw;
   color: white;
   font-weight: bold;
   cursor: pointer;
-  padding: 0.5rem 1.5rem;
+  padding: 1vw 4vw;
   -webkit-transition: opacity 1s ease-in-out;
   transition: opacity 1s ease-in-out;
   margin: 1rem;
   /* 크기 */
-  font-size: 1rem;
+  font-size: 4.3vw;
   font-family: inherit;
   /* 색상 */
   background: #228be6;
@@ -26,9 +26,9 @@ const StyledButton = styled.button`
   &:active {
     background: #1c7ed6;
   }
-  /* 기타 */
-  & + & {
-    margin-left: 1rem;
+  @media only screen and (min-width: 600px) {
+    font-size: 2.5vw;
+    padding: 0.7vw 1.5vw;
   }
 `;
 

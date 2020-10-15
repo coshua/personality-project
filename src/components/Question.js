@@ -57,7 +57,7 @@ const QuestionSpan = styled.span`
       animation: ${fadeIn} 1s ease-in-out;
     `}
 `;
-
+//maxheight 30%
 const Button = styled.button`
   font-size: 3.5vw;
   box-sizing: border-box;
@@ -70,7 +70,6 @@ const Button = styled.button`
   background-color: rgba(0, 0, 0, 0);
   overflow: hidden;
   width: 100%;
-  max-height: 30%;
   font-family: inherit;
   text-align: center;
   cursor: pointer;
