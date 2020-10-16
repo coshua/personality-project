@@ -3,7 +3,7 @@ import axios from "axios";
 
 const Result = ({ answer, calcResult, refreshPage, startTest }) => {
   const TYPE = calcResult();
-
+  var password = btoa("Accept this post request");
   useEffect(() => {
     const config = {
       headers: {
@@ -14,7 +14,9 @@ const Result = ({ answer, calcResult, refreshPage, startTest }) => {
     const data = {
       response: answer,
       category: TYPE,
+      password,
     };
+
     async function post() {
       axios.post(
         "https://api.personality.jutopia.net/api/result",
