@@ -10,7 +10,7 @@ const Span = styled.span`
   align-items: center;
   justify-content: space-around;
   width: 25%;
-  font-size: 4vw;
+  font-size: 2.6vw;
   @media only screen and (min-width: 600px) {
     font-size: 2.5vw;
   }
@@ -54,4 +54,4 @@ ShareFooter.propTypes = {
   music: PropTypes.object,
 };
 
-export default ShareFooter;
+export default React.memo(ShareFooter);

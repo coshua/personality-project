@@ -1,8 +1,20 @@
-import React from "react";
-import styled from "styled-components";
+import React, { useState, useEffect } from "react";
+import styled, { css } from "styled-components";
 
 const StyledButton = styled.button`
-  /* 공통 스타일 */
+  opacity: 0;
+  transition: opacity 2s ease-in;
+  ${(props) =>
+    props.animation === "fadeIn" &&
+    css`
+      opacity: 1;
+    `}
+  ${(props) =>
+    props.animation === "onEnd" &&
+    css`
+      opacity: 1;
+      transition: opacity 1s ease-in-out;
+    `}
   display: inline-flex;
   outline: none;
   border: none;
@@ -11,11 +23,9 @@ const StyledButton = styled.button`
   font-weight: bold;
   cursor: pointer;
   padding: 1vw 4vw;
-  -webkit-transition: opacity 1s ease-in-out;
-  transition: opacity 1s ease-in-out;
   margin: 1rem;
   /* 크기 */
-  font-size: 4.3vw;
+  font-size: 3.3vw;
   font-family: inherit;
   /* 색상 */
   background: #228be6;
@@ -33,7 +43,20 @@ const StyledButton = styled.button`
 `;
 
 function Button({ children, ...rest }) {
-  return <StyledButton {...rest}>{children}</StyledButton>;
+  useEffect(() => {
+    setTimeout(() => {
+      setAnimation("fadeIn");
+    }, 7000);
+    setTimeout(() => {
+      setAnimation("onEnd");
+    }, 9000);
+  }, []);
+  const [animation, setAnimation] = useState();
+  return (
+    <StyledButton animation={animation} {...rest}>
+      {children}
+    </StyledButton>
+  );
 }
 
 export default Button;

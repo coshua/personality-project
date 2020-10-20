@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect, useCallback } from "react";
 import { BrowserRouter as Router, Route, Switch } from "react-router-dom";
 import questionnaire from "./utils/questionnaire";
 import Landing from "./components/Landing";
@@ -7,7 +7,6 @@ import Result from "./components/Result";
 import Statistics from "./components/Statistics";
 import styled, { createGlobalStyle } from "styled-components";
 import { getLuminance } from "polished";
-import { preloadImage } from "./components/utilFunctions";
 import player from "./components/Player";
 import ShareFooter from "./components/ShareFooter";
 
@@ -21,14 +20,11 @@ const GlobalStyle = createGlobalStyle`
     overflow-x: hidden;
     font-family: "Noto Sans KR", sans-serif;
     font-size: 4.3vw;
-    font-size: 110%
     color: ${(props) =>
       getLuminance(`rgba(${props.backgroundColor})`) >= getLuminance("#dedede")
         ? "#000000"
         : "#dedede"};
-    background-image: ${(props) =>
-      (props.backgroundImage && props.backgroundImage) ||
-      `url('/images/flowers.jpg')`};
+    background-image: ${(props) => props.backgroundImage};
     background-color: rgba(${(props) =>
       props.backgroundColor || "255,255,255,0.3"});
     background-blend-mode: soft-light;
@@ -50,7 +46,7 @@ const GlobalStyle = createGlobalStyle`
 
   @media only screen and (min-width: 600px) {
     body {
-      font-size: 2.5vw;
+      font-size: 2.3vw;
     }
   }
 `;
@@ -119,6 +115,12 @@ const videoList = {
   },
 };
 
+const preloadImage = (src) => {
+  let img = new Image();
+  img.src = src;
+  return img;
+};
+
 const App = () => {
   useEffect(() => {
     var script = window.document.createElement("script");
@@ -151,12 +153,15 @@ const App = () => {
   });
   const [reserve, setReserve] = useState({});
 
-  const stopMusic = (volume = music.volume || 1, fadeDuration = 2000) => {
-    if (!music.pause) {
-      player.stop(volume, fadeDuration);
-      return fadeDuration;
-    }
-  };
+  const stopMusic = useCallback(
+    (volume = music.volume || 1, fadeDuration = 2000) => {
+      if (!music.pause) {
+        player.stop(volume, fadeDuration);
+        return fadeDuration;
+      }
+    },
+    [music]
+  );
 
   const muteMusic = () => {
     player.pause();
@@ -168,102 +173,117 @@ const App = () => {
     player.play(music.title, music.volume, 0);
   };
 
-  const playMusic = (title = "rain", volume = 1, fadeDuration = 3000) => {
-    setMusic({ ...music, title: title, volume: volume });
-    if (!music.pause) {
-      var delay = stopMusic();
-      setTimeout(() => {
-        player.play(title, volume, fadeDuration);
-      }, delay);
-    }
-  };
-
-  const handleVideo = (title, delay = 2000) => {
-    setVideo({ ...video, opacity: "0" });
-    setTimeout(
-      () => setVideo({ src: videoList[title].src, opacity: "0" }),
-      2000
-    );
-    setTimeout(
-      () => setVideo({ ...video, opacity: videoList[title].opacity }),
-      delay
-    );
-  };
-
-  const handleMusic = (v, interval = 2000) => {
-    if (questionnaire[index].response[v].hasOwnProperty("music"))
-      playMusic(questionnaire[index].response[v].music);
-    if (questionnaire[index].hasOwnProperty("useReserve")) {
-      playMusic(reserve.music);
-    }
-  };
-
-  const handleBackground = (v, interval = 2000) => {
-    if (questionnaire[index].response[v].hasOwnProperty("reservedBackground")) {
-      setReserve({
-        background: questionnaire[index].response[v].reservedBackground,
-        music: questionnaire[index].response[v].reservedMusic,
-      });
-    }
-    if (questionnaire[index].hasOwnProperty("useReserve")) {
-      handleFadeout();
-      let img = preloadImage(reserve.background.backgroundImage);
-      setTimeout(
-        () =>
-          setBackground({
-            backgroundImage: `url("${img.src}")`,
-            backgroundColor: reserve.background.backgroundColor,
-          }),
-        interval
-      );
-    }
-    if (questionnaire[index].hasOwnProperty("video")) {
-      handleFadeout();
-      handleVideo(questionnaire[index].video, questionnaire[index].delay);
-    }
-    if (questionnaire[index].response[v].hasOwnProperty("background")) {
-      handleFadeout();
-      setVideo({ ...video, opacity: "0" });
-
-      if (
-        questionnaire[index].response[v].background.backgroundImage.startsWith(
-          "linear"
-        )
-      ) {
-        setTimeout(
-          () =>
-            setBackground({
-              backgroundImage:
-                questionnaire[index].response[v].background.backgroundImage,
-              backgroundColor:
-                questionnaire[index].response[v].background.backgroundColor,
-            }),
-          interval
-        );
-      } else {
-        let img = preloadImage(
-          questionnaire[index].response[v].background.backgroundImage
-        );
-        setTimeout(
-          () =>
-            setBackground({
-              backgroundImage: `url("${img.src}")`,
-              backgroundColor:
-                questionnaire[index].response[v].background.backgroundColor,
-            }),
-          interval
-        );
+  const playMusic = useCallback(
+    (title = "rain", volume = 1, fadeDuration = 3000) => {
+      setMusic({ ...music, title: title, volume: volume });
+      if (!music.pause) {
+        var delay = stopMusic();
+        setTimeout(() => {
+          player.play(title, volume, fadeDuration);
+        }, delay);
       }
-    }
-  };
+    },
+    [music, stopMusic]
+  );
 
-  const handleFadeout = () => {
+  const handleVideo = useCallback(
+    (title, delay = 2000) => {
+      setVideo({ ...video, opacity: "0" });
+      setTimeout(
+        () => setVideo({ src: videoList[title].src, opacity: "0" }),
+        2000
+      );
+      setTimeout(
+        () => setVideo({ ...video, opacity: videoList[title].opacity }),
+        delay
+      );
+    },
+    [video]
+  );
+
+  const handleMusic = useCallback(
+    (v) => {
+      if (questionnaire[index].response[v].hasOwnProperty("music"))
+        playMusic(questionnaire[index].response[v].music);
+      if (questionnaire[index].hasOwnProperty("useReserve")) {
+        playMusic(reserve.music);
+      }
+    },
+    [index, playMusic, reserve]
+  );
+
+  const handleFadeout = useCallback(() => {
     var color = background.backgroundColor.split(",");
     setBackground({
       ...background,
       backgroundColor: color[0] + "," + color[1] + "," + color[2] + ",1",
     });
-  };
+  }, [background]);
+
+  const handleBackground = useCallback(
+    (v, interval = 2000) => {
+      if (
+        questionnaire[index].response[v].hasOwnProperty("reservedBackground")
+      ) {
+        setReserve({
+          background: questionnaire[index].response[v].reservedBackground,
+          music: questionnaire[index].response[v].reservedMusic,
+        });
+      }
+      if (questionnaire[index].hasOwnProperty("useReserve")) {
+        handleFadeout();
+        let img = preloadImage(reserve.background.backgroundImage);
+        setTimeout(
+          () =>
+            setBackground({
+              backgroundImage: `url("${img.src}")`,
+              backgroundColor: reserve.background.backgroundColor,
+            }),
+          interval
+        );
+      }
+      if (questionnaire[index].hasOwnProperty("video")) {
+        handleFadeout();
+        handleVideo(questionnaire[index].video, questionnaire[index].delay);
+      }
+      if (questionnaire[index].response[v].hasOwnProperty("background")) {
+        handleFadeout();
+        setVideo({ ...video, opacity: "0" });
+
+        if (
+          questionnaire[index].response[
+            v
+          ].background.backgroundImage.startsWith("linear")
+        ) {
+          setTimeout(
+            () =>
+              setBackground({
+                backgroundImage:
+                  questionnaire[index].response[v].background.backgroundImage,
+                backgroundColor:
+                  questionnaire[index].response[v].background.backgroundColor,
+              }),
+            interval
+          );
+        } else {
+          let img = preloadImage(
+            questionnaire[index].response[v].background.backgroundImage
+          );
+          console.log(img.src);
+          setTimeout(
+            () =>
+              setBackground({
+                backgroundImage: `url("${img.src}")`,
+                backgroundColor:
+                  questionnaire[index].response[v].background.backgroundColor,
+              }),
+            interval
+          );
+        }
+      }
+    },
+    [handleFadeout, handleVideo, index, reserve, video]
+  );
 
   const refreshPage = () => {
     setScore(initialState);
@@ -344,7 +364,12 @@ const App = () => {
                     tomorrow
                   </button>
                   {!start ? (
-                    <Landing startTest={startTest} handleVideo={handleVideo} />
+                    <Landing
+                      startTest={startTest}
+                      handleVideo={handleVideo}
+                      handleFadeout={handleFadeout}
+                      setBackground={setBackground}
+                    />
                   ) : index === QUESTIONS_LENGTH ? (
                     <Result
                       answer={answer}

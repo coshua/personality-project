@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, useEffect, useCallback } from "react";
 import questionnaire from "../utils/questionnaire";
 import styled, { keyframes, css } from "styled-components";
 import { darken } from "polished";
@@ -52,12 +52,20 @@ const QuestionSpan = styled.span`
       animation: ${fadeIn} 5s ${props.stagger}ms forwards;
     `}
     ${(props) =>
-    props.animate === "fade" &&
+    props.animate === "narationFadeIn" &&
     css`
-      animation: ${fadeIn} 1s ease-in-out;
+      opacity: 0;
+      display: block;
+      animation: ${fadeIn} 3s ${props.stagger}ms forwards;
+    `}
+  ${(props) =>
+    props.animate === "narationFadeOut" &&
+    css`
+      display: block;
+      animation: ${fadeOut} 1s forwards;
     `}
 `;
-//maxheight 30%
+
 const Button = styled.button`
   font-size: 3.5vw;
   box-sizing: border-box;
@@ -74,6 +82,7 @@ const Button = styled.button`
   text-align: center;
   cursor: pointer;
   transition: border-color 1s;
+  display: ${(props) => props.display || true};
   ${(props) =>
     props.animate === "fadeOutDelay" &&
     css`
@@ -104,7 +113,7 @@ const Button = styled.button`
     margin-top: 2rem;
   }
   @media only screen and (min-width: 600px) {
-    font-size: 1.8vw;
+    font-size: 1.6vw;
     width: 40%;
     & + & {
       margin-left: 10%;
@@ -115,17 +124,50 @@ const Button = styled.button`
 
 const Question = ({
   handleAnswer,
-  playMusic,
   index,
   setIndex,
   handleBackground,
   handleMusic,
 }) => {
+  // eslint-disable-next-line react-hooks/exhaustive-deps
+
   const [variation, setVariation] = useState(-1); //0 question for P,1 requires question for J
   const [animation, setAnimation] = useState({
     question: "fadeIn",
     response: ["fadeIn", "fadeIn"],
   });
+  // eslint-disable-next-line
+  useEffect(
+    () => {
+      if (questionnaire[index].naration) {
+        console.log("narationSlide");
+        var arr = questionnaire[index].naration;
+        var delay = arr[arr.length - 1][1];
+        console.log(delay);
+        setTimeout(() => {
+          console.log("First timeout");
+          handleMusic(0);
+          handleBackground(0);
+          setAnimation((prev) => {
+            return { ...prev, question: "fadeOut" };
+          });
+        }, delay + 3000);
+        var clickDelay = questionnaire[index].delay
+          ? delay + questionnaire[index].delay
+          : delay + 5000;
+        console.log(clickDelay);
+        setTimeout(() => {
+          console.log("second timeout");
+          setIndex(index + 1);
+          setAnimation((prev) => ({
+            ...prev,
+            question: "fadeIn",
+          }));
+        }, clickDelay);
+      }
+    }, // eslint-disable-next-line
+    [index]
+  );
 
   const spanGenerator = (string) => {
     var split = string.split("");
@@ -142,6 +184,26 @@ const Question = ({
     ));
   };
 
+  const narationGenerator = useCallback(
+    (arr) => {
+      console.log("narationGenerator");
+      return arr.map((sentence, index) => (
+        <QuestionSpan
+          key={index}
+          animate={
+            animation.question === "fadeOut"
+              ? "narationFadeOut"
+              : "narationFadeIn"
+          }
+          stagger={sentence[1]}
+        >
+          {sentence[0]}
+        </QuestionSpan>
+      ));
+    },
+    [animation]
+  );
+
   const renderResponse = (v) => {
     if (variation !== -1) {
       return (
@@ -156,7 +218,8 @@ const Question = ({
 
   const handleClick = (v) => {
     if (variation === -1) {
-      handleAnswer(questionnaire[index].response[v].type);
+      if (questionnaire[index].response[v].type)
+        handleAnswer(questionnaire[index].response[v].type);
       if (questionnaire[index].response[v].hasOwnProperty("subquestion")) {
         setVariation(v);
         setAnimation({ question: "fadeIn", response: ["fadeIn", "fadeIn"] });
@@ -177,52 +240,67 @@ const Question = ({
   return (
     <Container>
       <QuestionContainer>
-        {variation === -1
+        {questionnaire[index].naration
+          ? narationGenerator(questionnaire[index].naration)
+          : variation === -1
           ? spanGenerator(questionnaire[index].question)
           : spanGenerator(questionnaire[index].response[variation].subquestion)}
       </QuestionContainer>
 
-      <Button
-        animate={animation.response[0]}
-        delay={
-          variation === -1
-            ? questionnaire[index].question.length * 100
-            : questionnaire[index].response[variation].subquestion.length * 100
-        }
-        onClick={(e) => {
-          handleMusic(0);
-          handleBackground(0);
-          setAnimation({
-            question: "fadeOut",
-            response: ["fadeOutDelay", "fadeOut"],
-          });
-          setTimeout(() => handleClick(0), questionnaire[index].delay || 2000);
-        }}
-      >
-        {renderResponse(0)}
-      </Button>
-
-      <Button
-        animate={animation.response[1]}
-        delay={
-          variation === -1
-            ? questionnaire[index].question.length * 100
-            : questionnaire[index].response[variation].subquestion.length * 100
-        }
-        onClick={(e) => {
-          handleMusic(1);
-          handleBackground(1);
-          setAnimation({
-            question: "fadeOut",
-            response: ["fadeOut", "fadeOutDelay"],
-          });
-          setTimeout(() => handleClick(1), questionnaire[index].delay || 2000);
-        }}
-      >
-        {renderResponse(1)}
-      </Button>
+      {questionnaire[index].naration ? (
+        <></>
+      ) : (
+        <>
+          <Button
+            animate={animation.response[0]}
+            delay={
+              variation === -1
+                ? questionnaire[index].question.length * 100
+                : questionnaire[index].response[variation].subquestion.length *
+                  100
+            }
+            onClick={(e) => {
+              handleMusic(0);
+              handleBackground(0);
+              setAnimation({
+                question: "fadeOut",
+                response: ["fadeOutDelay", "fadeOut"],
+              });
+              setTimeout(
+                () => handleClick(0),
+                questionnaire[index].delay || 2000
+              );
+            }}
+          >
+            {renderResponse(0)}
+          </Button>{" "}
+          <Button
+            animate={animation.response[1]}
+            delay={
+              variation === -1
+                ? questionnaire[index].question.length * 100
+                : questionnaire[index].response[variation].subquestion.length *
+                  100
+            }
+            onClick={(e) => {
+              handleMusic(1);
+              handleBackground(1);
+              setAnimation({
+                question: "fadeOut",
+                response: ["fadeOut", "fadeOutDelay"],
+              });
+              setTimeout(
+                () => handleClick(1),
+                questionnaire[index].delay || 2000
+              );
+            }}
+          >
+            {renderResponse(1)}
+          </Button>
+        </>
+      )}
     </Container>
   );
 };
 
-export default Question;
+export default React.memo(Question);

@@ -3,7 +3,6 @@ import axios from "axios";
 
 const Result = ({ answer, calcResult, refreshPage, startTest }) => {
   const TYPE = calcResult();
-  var password = btoa("Accept this post request");
   useEffect(() => {
     const config = {
       headers: {
@@ -14,7 +13,6 @@ const Result = ({ answer, calcResult, refreshPage, startTest }) => {
     const data = {
       response: answer,
       category: TYPE,
-      password,
     };
 
     async function post() {
@@ -44,4 +42,4 @@ Result.propTypes = {
   //solid constructure
 };
 
-export default Result;
+export default React.memo(Result);
