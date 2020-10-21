@@ -9,7 +9,7 @@
         "music": "satie",
         "background": {
           "backgroundImage": "/images/sinchon.jpg",
-          "backgroundColor": "255,255,255,0.5"
+          "backgroundColor": "255,255,255,0.6"
         }
       }
     ]

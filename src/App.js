@@ -214,10 +214,10 @@ const App = () => {
 
   const handleFadeout = useCallback(() => {
     var color = background.backgroundColor.split(",");
-    setBackground({
-      ...background,
+    setBackground((prev) => ({
+      ...prev,
       backgroundColor: color[0] + "," + color[1] + "," + color[2] + ",1",
-    });
+    }));
   }, [background]);
 
   const handleBackground = useCallback(

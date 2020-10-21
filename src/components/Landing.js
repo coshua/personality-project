@@ -25,7 +25,7 @@ const QuestionSpan = styled.span`
 `;
 
 const Information = styled.p`
-  font-size: ${(props) => props.size};
+  font-size: ${(props) => props.size * 2}vw;
   opacity: 0;
   animation: ${fadeIn} 1.5s ease-in-out ${(props) => props.delay || "2s"}
     forwards;
@@ -34,6 +34,10 @@ const Information = styled.p`
     css`
       animation: ${fadeOut} 3s ease-in-out forwards;
     `}
+  @media only screen and (min-width: 600px) {
+    font-size: ${(props) => props.size}vw;
+    padding: 0.7vw 1.5vw;
+  }
 `;
 
 const Container = styled.div`
@@ -63,10 +67,10 @@ const Landing = ({ startTest, handleFadeout, setBackground }) => {
   return (
     <Container fadeOut={fadeOut}>
       <h2 id="animation">{spanGenerator("당신의 내면에 귀 기울어보세요")}</h2>
-      <Information fadeOut={fadeOut} size="2vw" delay="5s">
+      <Information fadeOut={fadeOut} size={2} delay="5s">
         10분 정도 당신의 이야기를 들려주세요
       </Information>
-      <Information fadeOut={fadeOut} size="1.7vw" delay="7s">
+      <Information fadeOut={fadeOut} size={1.7} delay="7s">
         이어폰 착용을 권장합니다
       </Information>
       <div className="control">

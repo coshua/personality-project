@@ -25,7 +25,7 @@ const StyledButton = styled.button`
   padding: 1vw 4vw;
   margin: 1rem;
   /* 크기 */
-  font-size: 3.3vw;
+  font-size: 5vw;
   font-family: inherit;
   /* 색상 */
   background: #228be6;

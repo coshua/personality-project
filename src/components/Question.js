@@ -136,7 +136,6 @@ const Question = ({
     question: "fadeIn",
     response: ["fadeIn", "fadeIn"],
   });
-  // eslint-disable-next-line
   useEffect(
     () => {
       if (questionnaire[index].naration) {
@@ -144,6 +143,9 @@ const Question = ({
         var arr = questionnaire[index].naration;
         var delay = arr[arr.length - 1][1];
         console.log(delay);
+        delay = questionnaire[index].delay
+          ? delay + questionnaire[index].delay
+          : delay + 3000;
         setTimeout(() => {
           console.log("First timeout");
           handleMusic(0);
@@ -151,11 +153,8 @@ const Question = ({
           setAnimation((prev) => {
             return { ...prev, question: "fadeOut" };
           });
-        }, delay + 3000);
-        var clickDelay = questionnaire[index].delay
-          ? delay + questionnaire[index].delay
-          : delay + 5000;
-        console.log(clickDelay);
+        }, delay);
+        delay = delay + 2000;
         setTimeout(() => {
           console.log("second timeout");
           setIndex(index + 1);
@@ -163,7 +162,7 @@ const Question = ({
             ...prev,
             question: "fadeIn",
           }));
-        }, clickDelay);
+        }, delay);
       }
     }, // eslint-disable-next-line
     [index]
