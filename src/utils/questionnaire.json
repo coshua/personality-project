@@ -4,21 +4,14 @@
       ["나레이션 1", 2000],
       ["나레이션 2", 4000]
     ],
-    "response": [
-      {
-        "music": "satie",
-        "background": {
-          "backgroundImage": "/images/sinchon.jpg",
-          "backgroundColor": "255,255,255,0.6"
-        }
-      }
-    ]
+    "response": [{}]
   },
   {
     "question": "내일은 모처럼의 휴일이다.",
     "response": [
       {
         "type": "E",
+        "music": "memories",
         "answer": "평소 시간이 안 맞아 만나기 어려웠던 친구에게 연락하여 약속을 잡는다"
       },
       {
@@ -28,10 +21,40 @@
     ]
   },
   {
+    "question": "내일은 모처럼의 휴일이다.",
+    "response": [
+      {
+        "type": "E",
+        "music": "memories",
+        "answer": "평소 시간이 안 맞아 만나기 어려웠던 친구에게 연락하여 약속을 잡는다"
+      },
+      {
+        "type": "I",
+        "answer": "집에서 혼자 하고 싶었던 것들을 하며 방해받지 않는 시간을 보낸다"
+      }
+    ]
+  },
+  {
+    "naration": [
+      ["당신 내면의 이", 2000],
+      ["나레이션 2", 4000]
+    ],
+    "response": [
+      {
+        "music": "ukulele",
+        "background": {
+          "backgroundImage": "/images/city.jpg",
+          "backgroundColor": "255,255,255,0.6"
+        }
+      }
+    ]
+  },
+  {
     "question": "친구와 점심 약속이 있다. 이때 나는",
     "response": [
       {
         "type": "P",
+        "music": "tomorrow",
         "answer": "여유를 부리며 준비한 것도 아닌데 시간이 촉박하다. 친구에게 늦을 것 같다고 연락한다.",
         "subquestion": "약속 장소에 거의 도착했다. 기다린 친구에게 무슨 말을 해야할까",
         "subresponse": [
@@ -67,6 +90,7 @@
     "response": [
       {
         "type": "P",
+        "music": "nature",
         "answer": "그 날 먹고 싶은 것을 적당한 곳에서 먹는다."
       },
       {
@@ -80,6 +104,7 @@
     "response": [
       {
         "type": "I",
+        "music": "rain",
         "answer": "친구의 이야기에 집중할 수 있는 조용하고 외딴 자리"
       },
       {

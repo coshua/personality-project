@@ -143,7 +143,6 @@ const App = () => {
   const [index, setIndex] = useState(0);
   const [music, setMusic] = useState({
     title: null,
-    volume: 1,
     pause: false,
   });
   const [video, setVideo] = useState(null);
@@ -154,9 +153,9 @@ const App = () => {
   const [reserve, setReserve] = useState({});
 
   const stopMusic = useCallback(
-    (volume = music.volume || 1, fadeDuration = 2000) => {
+    (fadeDuration = 2000) => {
       if (!music.pause) {
-        player.stop(volume, fadeDuration);
+        player.stop(fadeDuration);
         return fadeDuration;
       }
     },
@@ -165,21 +164,21 @@ const App = () => {
 
   const muteMusic = () => {
     player.pause();
-    setMusic({ ...music, pause: true });
+    setMusic((prev) => ({ ...prev, pause: true }));
   };
 
   const unmuteMusic = () => {
-    setMusic({ ...music, pause: false });
+    setMusic((prev) => ({ ...prev, pause: false }));
     player.play(music.title, music.volume, 0);
   };
 
   const playMusic = useCallback(
-    (title = "rain", volume = 1, fadeDuration = 3000) => {
-      setMusic({ ...music, title: title, volume: volume });
+    (title = "rain", fadeDuration = 3000) => {
+      setMusic((prev) => ({ ...prev, title: title }));
       if (!music.pause) {
         var delay = stopMusic();
         setTimeout(() => {
-          player.play(title, volume, fadeDuration);
+          player.play(title, fadeDuration);
         }, delay);
       }
     },

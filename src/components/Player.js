@@ -5,7 +5,7 @@ var Player = function (playlist) {
 };
 
 Player.prototype = {
-  play: function (title, volume = 1, duration = 5000) {
+  play: function (title, duration = 5000) {
     var self = this;
     var sound;
     if (title) {
@@ -15,9 +15,10 @@ Player.prototype = {
         sound = data.howl;
       } else {
         sound = data.howl = new Howl({
-          src: [`audios/${data.title}>webm`, `audios/${data.title}.mp3`],
+          src: [`audios/${data.title}.mp3`],
           html5: true,
           loop: true,
+          volume: data.volume,
           xhr: {
             method: "GET",
             headers: {
@@ -28,7 +29,7 @@ Player.prototype = {
         });
       }
       sound.play();
-      sound.fade(0, volume, duration);
+      sound.fade(0, data.volume, duration);
       self.title = title;
     }
   },
@@ -46,16 +47,15 @@ Player.prototype = {
     }
   },
 
-  stop: function (initVolume = 1, duration = 5000) {
+  stop: function (duration = 5000) {
     var self = this;
-    console.log("Self title is" + self.title);
     if (self.title) {
       var data = self.playlist.filter((audio) => audio.title === self.title)[0];
       if (data.howl) {
         var sound = data.howl;
-        sound.fade(initVolume, 0, duration);
+        sound.fade(data.volume, 0, duration);
         console.log(
-          "Volume " + initVolume + " to 0 in " + duration + " miliseconds"
+          "Volume " + data.volume + " to 0 in " + duration + " miliseconds"
         );
         setTimeout(() => {
           console.log("sound stop");
@@ -69,26 +69,32 @@ Player.prototype = {
 var player = new Player([
   {
     title: "rain",
+    volume: 0.06,
     howl: null,
   },
   {
     title: "nature",
+    volume: 0.07,
     howl: null,
   },
   {
     title: "memories",
+    volume: 0.1,
     howl: null,
   },
   {
     title: "satie",
+    volume: 1,
     howl: null,
   },
   {
     title: "tomorrow",
+    volume: 0.1,
     howl: null,
   },
   {
     title: "ukulele",
+    volume: 0.02,
     howl: null,
   },
 ]);
