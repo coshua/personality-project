@@ -111,7 +111,7 @@ const videoList = {
   },
   star: {
     src: "/videos/star1280.mp4",
-    opacity: 1,
+    opacity: 0.1,
   },
 };
 
@@ -186,16 +186,10 @@ const App = () => {
   );
 
   const handleVideo = useCallback(
-    (title, delay = 2000) => {
-      setVideo({ ...video, opacity: "0" });
-      setTimeout(
-        () => setVideo({ src: videoList[title].src, opacity: "0" }),
-        2000
-      );
-      setTimeout(
-        () => setVideo({ ...video, opacity: videoList[title].opacity }),
-        delay
-      );
+    (title, opacity, delay = 2000) => {
+      setVideo((prev) => ({ ...prev, opacity: "0" }));
+      setTimeout(() => setVideo({ src: title, opacity: "0" }), 2000);
+      setTimeout(() => setVideo({ ...video, opacity: opacity }), delay);
     },
     [video]
   );
@@ -243,7 +237,11 @@ const App = () => {
       }
       if (questionnaire[index].hasOwnProperty("video")) {
         handleFadeout();
-        handleVideo(questionnaire[index].video, questionnaire[index].delay);
+        handleVideo(
+          questionnaire[index].video.title,
+          questionnaire[index].video.opacity,
+          questionnaire[index].delay
+        );
       }
       if (questionnaire[index].response[v].hasOwnProperty("background")) {
         handleFadeout();
@@ -356,12 +354,6 @@ const App = () => {
             render={() => (
               <>
                 <Content>
-                  <button onClick={() => player.play("rain")}>rain</button>
-                  <button onClick={() => player.pause()}>pause</button>
-                  <button onClick={() => player.stop()}>stop</button>
-                  <button onClick={() => player.play("tomorrow")}>
-                    tomorrow
-                  </button>
                   {!start ? (
                     <Landing
                       startTest={startTest}

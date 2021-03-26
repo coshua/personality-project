@@ -260,7 +260,7 @@ const Question = ({
             }
             onClick={(e) => {
               handleMusic(0);
-              handleBackground(0);
+              handleBackground(0, questionnaire[index].delay || 2000);
               setAnimation({
                 question: "fadeOut",
                 response: ["fadeOutDelay", "fadeOut"],

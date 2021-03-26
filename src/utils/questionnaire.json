@@ -7,45 +7,20 @@
     "response": [{}]
   },
   {
-    "question": "내일은 모처럼의 휴일이다.",
+    "question": "사람을 만나면",
     "response": [
       {
         "type": "E",
-        "music": "memories",
-        "answer": "평소 시간이 안 맞아 만나기 어려웠던 친구에게 연락하여 약속을 잡는다"
-      },
-      {
-        "type": "I",
-        "answer": "집에서 혼자 하고 싶었던 것들을 하며 방해받지 않는 시간을 보낸다"
-      }
-    ]
-  },
-  {
-    "question": "내일은 모처럼의 휴일이다.",
-    "response": [
-      {
-        "type": "E",
-        "music": "memories",
-        "answer": "평소 시간이 안 맞아 만나기 어려웠던 친구에게 연락하여 약속을 잡는다"
-      },
-      {
-        "type": "I",
-        "answer": "집에서 혼자 하고 싶었던 것들을 하며 방해받지 않는 시간을 보낸다"
-      }
-    ]
-  },
-  {
-    "naration": [
-      ["당신 내면의 이", 2000],
-      ["나레이션 2", 4000]
-    ],
-    "response": [
-      {
         "music": "ukulele",
         "background": {
-          "backgroundImage": "/images/city.jpg",
-          "backgroundColor": "255,255,255,0.6"
-        }
+          "backgroundImage": "/images/sinchon.jpg",
+          "backgroundColor": "255,255,255,0.65"
+        },
+        "answer": "평소 시간이 안 맞아 만나기 어려웠던 친구에게 연락하여 약속을 잡는다"
+      },
+      {
+        "type": "I",
+        "answer": "집에서 혼자 하고 싶었던 것들을 하며 방해받지 않는 시간을 보낸다"
       }
     ]
   },
@@ -54,7 +29,6 @@
     "response": [
       {
         "type": "P",
-        "music": "tomorrow",
         "answer": "여유를 부리며 준비한 것도 아닌데 시간이 촉박하다. 친구에게 늦을 것 같다고 연락한다.",
         "subquestion": "약속 장소에 거의 도착했다. 기다린 친구에게 무슨 말을 해야할까",
         "subresponse": [
@@ -90,7 +64,10 @@
     "response": [
       {
         "type": "P",
-        "music": "nature",
+        "background": {
+          "backgroundImage": "/images/restaurant-crowded.jpg",
+          "backgroundColor": "0,0,0,0.5"
+        },
         "answer": "그 날 먹고 싶은 것을 적당한 곳에서 먹는다."
       },
       {
@@ -104,12 +81,15 @@
     "response": [
       {
         "type": "I",
-        "music": "rain",
-        "answer": "친구의 이야기에 집중할 수 있는 조용하고 외딴 자리"
+        "background": {
+          "backgroundImage": "/images/restaurant-inner.jpg",
+          "backgroundColor": "0,0,0,0.55"
+        },
+        "answer": "사람 눈에 잘 띄지 않는 조용하고 외딴 자리"
       },
       {
         "type": "E",
-        "answer": "친구와 웃고 떠들어도 눈치 보이지 않을 정도로 적당한 소음이 있는 자리"
+        "answer": "친구와 웃고 떠들어도 눈치 보이지 않을 적당한 소음이 있는 자리"
       }
     ]
   },
@@ -118,6 +98,10 @@
     "response": [
       {
         "type": "S",
+        "background": {
+          "backgroundImage": "/images/sinchon.jpg",
+          "backgroundColor": "0,0,0,0.65"
+        },
         "answer": "눈 앞의 친구의 이야기에 쉽게 집중할 수 있다."
       },
       {
@@ -131,7 +115,11 @@
     "response": [
       {
         "type": "F",
-        "answer": "친구의 억울한 일은 곧 나의 억울한 일. 친구의 기분을 자연스럽게 풀어주는 법을 안다."
+        "answer": "친구의 억울한 일은 곧 나의 억울한 일. 친구의 기분을 자연스럽게 풀어주는 법을 안다.",
+        "background": {
+          "backgroundImage": "/images/bus.jpg",
+          "backgroundColor": "0,0,0,0.65"
+        }
       },
       {
         "type": "T",
@@ -140,26 +128,34 @@
     ]
   },
   {
-    "question": "친구와 헤어지고 집에 가는 길이다. ",
+    "question": "친구와 헤어지고 집에 가는 길이다. 사람을 만나면",
     "response": [
       {
         "type": "E",
-        "answer": "대체로 에너지를 얻는다",
-        "background": {
-          "backgroundImage": "linear-gradient(315deg, #ffa69e 0%, #5d4954 74%)",
-          "backgroundColor": "0,0,0,0.5"
-        },
-        "music": "rain"
+        "answer": "대체로 에너지를 얻는다"
       },
       {
         "type": "I",
-        "answer": "모아둔 에너지를 사용한다",
-        "background": {
-          "backgroundImage": "/images/starry_night.jpg",
-          "backgroundColor": "0,0,0,0.5"
-        }
+        "answer": "모아둔 에너지를 사용한다"
       }
     ]
+  },
+  {
+    "question": "내일은 모처럼의 휴일이다.",
+    "response": [
+      {
+        "type": "E",
+        "music": "rain",
+        "answer": "평소 시간이 안 맞아 만나기 어려웠던 친구에게 연락하여 약속을 잡는다"
+      },
+      {
+        "type": "I",
+        "music": "rain",
+        "answer": "집에서 혼자 하고 싶었던 것들을 하며 방해받지 않는 시간을 보낸다"
+      }
+    ],
+    "video": { "title": "/videos/rain1920.mp4", "opacity": "0.8" },
+    "delay": "6000"
   },
   {
     "question": "좋아하는 친구와 여행 계획을 세우고 있다. 장소는 어디가 좋을까?",
@@ -189,36 +185,11 @@
     "response": [
       {
         "type": "P",
-        "answer": "가볼만한 곳을 간단하게 검색해서 대략적인 동선과 잘 곳을 생각한다.",
-        "music": "satie"
+        "answer": "가볼만한 곳을 간단하게 검색해서 대략적인 동선과 잘 곳을 생각한다."
       },
       {
         "type": "J",
         "answer": "숙소에서 잔다면 체크아웃 시간까지 생각하여 일정을 짠다."
-      }
-    ],
-    "video": "rain",
-    "delay": "5000"
-  },
-  {
-    "question": "사람을 만나면",
-    "response": [
-      {
-        "type": "E",
-        "answer": "대체로 에너지를 얻는다",
-        "background": {
-          "backgroundImage": "linear-gradient(315deg, #ffa69e 0%, #5d4954 74%)",
-          "backgroundColor": "0,0,0,0.5"
-        },
-        "music": "rain"
-      },
-      {
-        "type": "I",
-        "answer": "모아둔 에너지를 사용한다",
-        "background": {
-          "backgroundImage": "/images/starry_night.jpg",
-          "backgroundColor": "0,0,0,0.5"
-        }
       }
     ]
   },
@@ -270,20 +241,6 @@
       }
     ]
   },
-
-  {
-    "question": "내일은 모처럼의 휴일이다.",
-    "response": [
-      {
-        "type": "E",
-        "answer": "평소 시간이 안 맞아 만나기 어려웠던 친구에게 연락하여 약속을 잡는다"
-      },
-      {
-        "type": "I",
-        "answer": "집에서 혼자 하고 싶었던 것들을 하며 방해받지 않는 시간을 보낸다"
-      }
-    ]
-  },
   {
     "question": "자기전에 생각 없다.",
     "response": [
@@ -295,8 +252,6 @@
         "type": "S",
         "answer": "비현실적인 생각들은 뜬구름 잡는 이야기같다."
       }
-    ],
-    "video": "rain",
-    "delay": "4000"
+    ]
   }
 ]

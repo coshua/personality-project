@@ -37,8 +37,8 @@ const StyledButton = styled.button`
     background: #1c7ed6;
   }
   @media only screen and (min-width: 600px) {
-    font-size: 2.5vw;
-    padding: 0.7vw 1.5vw;
+    font-size: 2.2vw;
+    padding: 0.6vw 1.3vw;
   }
 `;
 
