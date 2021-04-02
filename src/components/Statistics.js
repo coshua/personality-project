@@ -1,6 +1,11 @@
 import React, { useState, useEffect } from "react";
 import axios from "axios";
 import { Doughnut } from "react-chartjs-2";
+import styled from "styled-components";
+
+const Container = styled.div`
+  margin: auto;
+`;
 
 const Statistics = ({ type }) => {
   const [stat, setStat] = useState({});
@@ -65,65 +70,70 @@ const Statistics = ({ type }) => {
 
   return (
     <>
-      {stat.hasOwnProperty("labels") ? (
-        <Doughnut
-          data={{
-            labels: stat.labels,
-            datasets: [
-              {
-                labels: stat.labels,
-                data: stat.acc,
-                fill: false,
-                backgroundColor: colorArray,
+      <Container>
+        {stat.hasOwnProperty("labels") ? (
+          <Doughnut
+            data={{
+              labels: stat.labels,
+              datasets: [
+                {
+                  labels: stat.labels,
+                  data: stat.acc,
+                  fill: false,
+                  backgroundColor: colorArray,
+                },
+              ],
+            }}
+            options={{
+              animation: {
+                duration: 1500,
               },
-            ],
-          }}
-          options={{
-            animation: {
-              duration: 1500,
-            },
-            layout: {
-              padding: {
-                top: (width * 6) / 100,
-                right: (width * 2) / 100,
-              },
-            },
-            legend: {
-              display: true,
-              fullWidth: false,
-              position: isMobile ? "bottom" : "right",
-              labels: {
-                padding: 15,
-                boxWidth: isMobile ? (width * 12) / 100 : (width * 6) / 100,
-                fontSize: isMobile ? (width * 5) / 100 : (width * 2) / 100,
-                filter: (item, chart) => {
-                  if (!isMobile) return true;
-                  return item.text === type;
+              responsive: true,
+              maintainAspectRatio: true,
+              layout: {
+                padding: {
+                  top: (width * 6) / 100,
+                  right: (width * 2) / 100,
                 },
               },
-            },
-            tooltips: {
-              callbacks: {
-                label: (tooltipItem, data) => {
-                  return data.datasets[0].labels[tooltipItem.index];
-                },
-                afterLabel: (tooltipItem, data) => {
-                  var dataset = data.datasets[0];
-                  var percent = Math.round(
-                    (dataset["data"][tooltipItem["index"]] /
-                      dataset["_meta"][0]["total"]) *
-                      100
-                  );
-                  return "(" + percent + "%)";
+              legend: {
+                display: true,
+                fullWidth: false,
+                position: isMobile ? "bottom" : "right",
+                labels: {
+                  padding: 15,
+                  boxWidth: isMobile ? (width * 12) / 100 : (width * 6) / 100,
+                  fontSize: isMobile ? (width * 5) / 100 : (width * 2) / 100,
+                  filter: (item, chart) => {
+                    if (!isMobile) return true;
+                    return item.text === type;
+                  },
                 },
               },
-            },
-          }}
-          width="10vw"
-        />
-      ) : (
-        <></>
-      )}
+              tooltips: {
+                callbacks: {
+                  label: (tooltipItem, data) => {
+                    return data.datasets[0].labels[tooltipItem.index];
+                  },
+                  afterLabel: (tooltipItem, data) => {
+                    var dataset = data.datasets[0];
+                    var percent = Math.round(
+                      (dataset["data"][tooltipItem["index"]] /
+                        dataset["_meta"][0]["total"]) *
+                        100
+                    );
+                    return "(" + percent + "%)";
+                  },
+                },
+              },
+            }}
+            height={isMobile ? "150px" : "400px"}
+            width={isMobile ? "300px" : "800px"}
+          />
+        ) : (
+          <></>
+        )}
+      </Container>
     </>
   );
 };

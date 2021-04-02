@@ -1,6 +1,6 @@
 import React, { useState, useEffect, useCallback } from "react";
 import { BrowserRouter as Router, Route, Switch } from "react-router-dom";
-import questionnaire from "./utils/questionnaire";
+// import questionnaire from "./utils/questionnaire";
 import Landing from "./components/Landing";
 import Question from "./components/Question";
 import Result from "./components/Result";
@@ -9,6 +9,7 @@ import styled, { createGlobalStyle } from "styled-components";
 import { getLuminance } from "polished";
 import player from "./components/Player";
 import ShareFooter from "./components/ShareFooter";
+import LangContext from "./utils/LangContext";
 
 const GlobalStyle = createGlobalStyle`
   html {
@@ -91,8 +92,6 @@ const Content = styled.div`
   }
 `; */
 
-const QUESTIONS_LENGTH = questionnaire.length;
-
 const initialState = {
   E: 0,
   I: 0,
@@ -122,6 +121,8 @@ const preloadImage = (src) => {
 };
 
 const App = () => {
+  const [questionnaire, setQuestionnaire] = useState();
+  const [lang, setLang] = useState("");
   useEffect(() => {
     var script = window.document.createElement("script");
     script.addEventListener("load", (event) => {
@@ -131,7 +132,18 @@ const App = () => {
     });
     script.src = "https://developers.kakao.com/sdk/js/kakao.js";
     window.document.body.append(script);
+    if (window.navigator.language.startsWith("ko")) {
+      setLang("ko");
+      import("./utils/questionnaire").then((q) => {
+        setQuestionnaire(q.default);
+      });
+    } else {
+      import("./utils/questionnaire_en").then((q) => {
+        setQuestionnaire(q.default);
+      });
+    }
   }, []);
+
   const [innerHeight, setInnerHeight] = useState(window.innerHeight);
   window.addEventListener("resize", () => {
     setInnerHeight(window.innerHeight);
@@ -202,7 +214,7 @@ const App = () => {
         playMusic(reserve.music);
       }
     },
-    [index, playMusic, reserve]
+    [index, playMusic, reserve, questionnaire]
   );
 
   const handleFadeout = useCallback(() => {
@@ -279,7 +291,7 @@ const App = () => {
         }
       }
     },
-    [handleFadeout, handleVideo, index, reserve, video]
+    [handleFadeout, handleVideo, index, reserve, video, questionnaire]
   );
 
   const refreshPage = () => {
@@ -317,80 +329,86 @@ const App = () => {
   };
 
   return (
-    <Container innerHeight={innerHeight}>
-      <GlobalStyle
-        backgroundImage={background.backgroundImage}
-        backgroundColor={background.backgroundColor}
-        videoOpacity={video !== null ? video.opacity : 1}
-      />
-      {video !== null ? (
-        <video muted autoPlay loop preload="auto" src={video.src}>
-          <source type="video/mp4" />
-          <strong>Your browser does not support the video tag</strong>
-        </video>
-      ) : (
-        <></>
-      )}
-      <Router>
-        <Switch>
-          <Route
-            path="/statistics"
-            render={() => <Statistics type={calcResult()} />}
-          />
-          <Route
-            path="/post"
-            render={() => (
-              <Result
-                answer={answer}
-                calcResult={calcResult}
-                startTest={startTest}
-                refreshPage={refreshPage}
-              />
-            )}
-          />
-          <Route
-            exact
-            path="/"
-            render={() => (
-              <>
-                <Content>
-                  {!start ? (
-                    <Landing
-                      startTest={startTest}
-                      handleVideo={handleVideo}
-                      handleFadeout={handleFadeout}
-                      setBackground={setBackground}
-                    />
-                  ) : index === QUESTIONS_LENGTH ? (
-                    <Result
-                      answer={answer}
-                      calcResult={calcResult}
-                      startTest={startTest}
-                      refreshPage={refreshPage}
-                    />
-                  ) : (
-                    <Question
-                      index={index}
-                      setIndex={setIndex}
-                      playMusic={playMusic}
-                      handleAnswer={handleAnswer}
-                      handleBackground={handleBackground}
-                      handleMusic={handleMusic}
-                    />
-                  )}
-                </Content>
-                <ShareFooter
-                  music={music}
-                  unmuteMusic={unmuteMusic}
-                  muteMusic={muteMusic}
+    <LangContext.Provider value={lang}>
+      <Container innerHeight={innerHeight}>
+        <GlobalStyle
+          backgroundImage={background.backgroundImage}
+          backgroundColor={background.backgroundColor}
+          videoOpacity={video !== null ? video.opacity : 1}
+        />
+        {video !== null ? (
+          <video muted autoPlay loop preload="auto" src={video.src}>
+            <source type="video/mp4" />
+            <strong>Your browser does not support the video tag</strong>
+          </video>
+        ) : (
+          <></>
+        )}
+        <Router>
+          <Switch>
+            <Route
+              path="/statistics"
+              render={() => <Statistics type={calcResult()} />}
+            />
+            <Route
+              path="/post"
+              render={() => (
+                <Result
+                  answer={answer}
+                  calcResult={calcResult}
+                  startTest={startTest}
+                  refreshPage={refreshPage}
                 />
-              </>
-            )}
-          />
-        </Switch>
-      </Router>
-    </Container>
+              )}
+            />
+            <Route
+              exact
+              path="/"
+              render={() => (
+                <>
+                  <Content>
+                    {!start ? (
+                      <Landing
+                        startTest={startTest}
+                        handleVideo={handleVideo}
+                        handleFadeout={handleFadeout}
+                        setBackground={setBackground}
+                      />
+                    ) : index === questionnaire.length ? (
+                      <Result
+                        answer={answer}
+                        calcResult={calcResult}
+                        startTest={startTest}
+                        refreshPage={refreshPage}
+                      />
+                    ) : (
+                      <Question
+                        questionnaire={questionnaire}
+                        index={index}
+                        setIndex={setIndex}
+                        playMusic={playMusic}
+                        handleAnswer={handleAnswer}
+                        handleBackground={handleBackground}
+                        handleMusic={handleMusic}
+                      />
+                    )}
+                  </Content>
+                  <ShareFooter
+                    index={index}
+                    music={music}
+                    unmuteMusic={unmuteMusic}
+                    muteMusic={muteMusic}
+                  />
+                </>
+              )}
+            />
+          </Switch>
+        </Router>
+      </Container>
+    </LangContext.Provider>
   );
 };
+
+// let QUESTIONS_LENGTH = questionnaire.length;
 
 export default App;

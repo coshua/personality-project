@@ -1,5 +1,4 @@
 import React, { useState, useEffect, useCallback } from "react";
-import questionnaire from "../utils/questionnaire";
 import styled, { keyframes, css } from "styled-components";
 import { darken } from "polished";
 
@@ -121,8 +120,8 @@ const Button = styled.button`
     }
   }
 `;
-
 const Question = ({
+  questionnaire,
   handleAnswer,
   index,
   setIndex,
@@ -165,7 +164,7 @@ const Question = ({
         }, delay);
       }
     }, // eslint-disable-next-line
-    [index]
+    []
   );
 
   const spanGenerator = (string) => {
